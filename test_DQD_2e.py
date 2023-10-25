@@ -10,9 +10,6 @@ spin_location = location * spin
 cLu_, cLd_, cRu_, cRd_ = spin_location.creations()
 cLu, cLd, cRu, cRd = spin_location.annihilations()
 
-cL_, cR_ = location.creations()
-cL, cR = location.annihilations()
-
 # Define Hamiltonian
 # Define factors (here symbolic variables are used)
 eRu = Symbol('\epsilon_{R\\uparrow}')
@@ -40,8 +37,12 @@ H = [
     (UL, [cLu_, cLu, cLd_, cLd]),
     (UR, [cRu_, cRu, cRd_, cRd]),
     # Interdot Coulomb
-    (V, [cL_, cL, cR_, cR])
+    (V, [cLu_, cLu, cRu_, cRu]),
+    (V, [cLd_, cLd, cRd_, cRd]),
+    (V, [cLu_, cLu, cRd_, cRd]),
+    (V, [cLd_, cLd, cRu_, cRu]),
 ]
+
 
 # Define basis (creation operators acting on vacuum)
 basis = [

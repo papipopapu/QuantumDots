@@ -69,7 +69,8 @@ print(latex(drho_matrix))
 # or the vectorised form of L 
 L = get_density_equation_vect(G_matrix, H_matrix)
 
-# we can check that drho_matrix = matrix(L * vect(rho))
+# we
+# can check that drho_matrix = matrix(L * vect(rho))
 rho_vect = zeros(16, 1)
 for m in range(4):
     for n in range(4):
@@ -83,5 +84,13 @@ for m in range(4):
         
 assert(simplify(drho_vect_matrix - drho_matrix) == zeros(4, 4))
 
+
+
+# tau microeV
+# epsilon microeV
+# U meV
+# V ~microev
+# t ~ 10 ns
+# Gamma ~ tau / 10
 
 
