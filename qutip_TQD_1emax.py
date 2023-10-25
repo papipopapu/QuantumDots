@@ -1,5 +1,7 @@
 from qutipDots import *
-
+from qutip import *
+import matplotlib.pyplot as plt
+from scipy.linalg import expm
 # Basis
 s0_0_0 = eqdot_state([0, 0, 0]) # |0, 0, 0>
 s1_0_0 = eqdot_state([1, 0, 0]) # |1, 0, 0>
@@ -43,3 +45,30 @@ Gamma[0, 3] = gR
 
 # Get Liouville matrix
 Liouville = get_Liouville(Gamma, H_red)
+
+# solve dynamics
+rho0 = np.zeros((16, 1), dtype=np.complex128)
+rho0[5] = 1
+ts = np.linspace(0,100, 1000)
+rhos = np.array([expm(Liouville * t) @ rho0 for t in ts])
+
+
+
+# plot diagonal elements, label in latex rho_ii
+
+plt.plot(ts, rhos[:, 5], label='$\\rho_{11}$')
+plt.plot(ts, rhos[:, 10], label='$\\rho_{22}$')
+plt.plot(ts, rhos[:, 15], label='$\\rho_{33}$')
+
+# plot trace
+plt.plot(ts, np.array([np.trace(rho.reshape((4, 4))) for rho in rhos]), label='trace')
+
+plt.legend()
+
+plt.xlabel('Time')
+plt.ylabel('Population')
+plt.show()
+
+
+
+
