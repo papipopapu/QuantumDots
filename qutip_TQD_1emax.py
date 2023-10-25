@@ -1,7 +1,7 @@
 from qutipDots import *
 from qutip import *
 import matplotlib.pyplot as plt
-from scipy.linalg import expm
+from scipy.linalg import expm, null_space
 # Basis
 s0_0_0 = eqdot_state([0, 0, 0]) # |0, 0, 0>
 s1_0_0 = eqdot_state([1, 0, 0]) # |1, 0, 0>
@@ -49,26 +49,32 @@ Liouville = get_Liouville(Gamma, H_red)
 # solve dynamics
 rho0 = np.zeros((16, 1), dtype=np.complex128)
 rho0[5] = 1
-ts = np.linspace(0,100, 1000)
+ts = np.linspace(0,1000, 1000)
 rhos = np.array([expm(Liouville * t) @ rho0 for t in ts])
 
 
 
-# plot diagonal elements, label in latex rho_ii
-
-plt.plot(ts, rhos[:, 5], label='$\\rho_{11}$')
-plt.plot(ts, rhos[:, 10], label='$\\rho_{22}$')
-plt.plot(ts, rhos[:, 15], label='$\\rho_{33}$')
+# plot diagonal elements
+plt.plot(ts, rhos[:, 5].real, label='$\\rho_{11}$')
+plt.plot(ts, rhos[:, 10].real, label='$\\rho_{22}$')
+plt.plot(ts, rhos[:, 15].real, label='$\\rho_{33}$')
 
 # plot trace
-plt.plot(ts, np.array([np.trace(rho.reshape((4, 4))) for rho in rhos]), label='trace')
+plt.plot(ts, np.array([np.trace(rho.real.reshape((4, 4))) for rho in rhos]), label='trace')
+
+
+
+# find steady state
+rho_ss = null_space(Liouville)
+rho_ss = rho_ss / np.trace(rho_ss.real.reshape((4, 4)))
+
+# plot diagonal elements
+plt.plot(ts, np.array([rho_ss[5, 0] for t in ts]), '.', label='$\\rho_{11}$ ss')
+plt.plot(ts, np.array([rho_ss[10, 0] for t in ts]), '-.',label='$\\rho_{22}$ ss')
+plt.plot(ts, np.array([rho_ss[15, 0] for t in ts]), '--', label='$\\rho_{33}$ ss')
 
 plt.legend()
 
 plt.xlabel('Time')
 plt.ylabel('Population')
 plt.show()
-
-
-
-
