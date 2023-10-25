@@ -1,4 +1,4 @@
-from Hamiltonian import *
+from hamiltonian import *
 from sympy import Symbol, init_printing, latex, Matrix
 
 # Define spaces

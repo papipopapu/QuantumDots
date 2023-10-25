@@ -1,5 +1,5 @@
-from Hamiltonian import *
-from Density import *
+from hamiltonian import *
+from density import *
 
 from sympy import Symbol, init_printing, latex, Matrix, zeros, simplify
 
