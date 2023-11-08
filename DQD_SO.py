@@ -1,6 +1,9 @@
 from hamiltonian import *
 from sympy import Symbol, init_printing, latex, Matrix, simplify
 import numpy as np
+
+init_printing()
+
 # Define spaces
 spin = Space('spin', ['up', 'down'])
 location = Space('location', ['left', 'right'])
@@ -15,7 +18,7 @@ cLu, cLd, cRu, cRd = spin_location.annihilations()
 eR = Symbol('epsilon_R')
 eL = Symbol('epsilon_L')
 
-tau_0 = Symbol('tau')
+tau_0 = Symbol('tau_0')
 tau_sf = Symbol('\\tau_{sf}')
 U = Symbol('U')
 V = Symbol('V')
@@ -65,9 +68,8 @@ basis = [
 
 # Calculate Hamiltonian matrix
 H_matrix = calc_Hamiltonian(H, basis)
-
-init_printing()
-
+print("Hamiltonian matrix:")
+print(latex(Matrix(H_matrix)))
 
 # Change basis to molecular basis
 S11 = [0, 0, 0, 0, 1/np.sqrt(2), -1/np.sqrt(2)]
@@ -97,3 +99,36 @@ U_basis = [
 H_matrix_U_2 = calc_Hamiltonian(H, U_basis)
 
 # you can check that both methods give the same result
+
+# lets now do it for 1 electron
+H = [
+    # Energies
+    (eL, [cLu_, cLu]),
+    (eL, [cLd_, cLd]),
+    (eR, [cRu_, cRu]),
+    (eR, [cRd_, cRd]),
+    # Tunneling no flip
+    (-tau_0, [cLu_, cRu]),
+    (-tau_0, [cRu_, cLu]),
+    (-tau_0, [cLd_, cRd]),
+    (-tau_0, [cRd_, cLd]),
+    # Tunneling spin flip
+    (-tau_sf, [cLu_, cRd]),
+    (-tau_sf, [cRd_, cLu]),
+    (-tau_sf, [cLd_, cRu]),
+    (-tau_sf, [cRu_, cLd]),
+    # Zeeman
+    (Ez/2, [cLu_, cLu]),
+    (-Ez/2, [cLd_, cLd]),
+    (Ez/2, [cRu_, cRu]),
+    (-Ez/2, [cRd_, cRd]),
+]
+
+basis = [
+    [(1, [cLu_])], # |10, 00>
+    [(1, [cLd_])], # |01, 00>
+    [(1, [cRu_])], # |00, 10>
+    [(1, [cRd_])] # |00, 01>
+]
+
+H_matrix = calc_Hamiltonian(H, basis)
