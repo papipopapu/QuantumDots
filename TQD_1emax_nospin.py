@@ -42,10 +42,10 @@ H = [
 # Define basis (creation operators acting on vacuum)
 
 basis = [
-    [], # |000>
-    [c1_], # |100>
-    [c2_], # |010>
-    [c3_], # |001>
+    [(1, [])], # |000>
+    [(1, [c1_])], # |100>
+    [(1, [c2_])], # |010>
+    [(1, [c3_])], # |001>
 ]
 
 # Calculate Hamiltonian matrix

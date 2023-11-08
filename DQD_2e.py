@@ -46,12 +46,12 @@ H = [
 
 # Define basis (creation operators acting on vacuum)
 basis = [
-    [cLu_, cLd_], # |11, 00>
-    [cRu_, cRd_], # |00, 11>
-    [cLu_, cRu_], # |10, 10>
-    [cLd_, cRd_], # |01, 01>
-    [cLu_, cRd_], # |10, 01>
-    [cLd_, cRu_] # |01, 10>
+    [(1, [cLu_, cLd_])], # |11, 00>
+    [(1, [cRu_, cRd_])], # |00, 11>
+    [(1, [cLu_, cRu_])], # |10, 10>
+    [(1, [cLd_, cRd_])], # |01, 01>
+    [(1, [cLu_, cRd_])], # |10, 01>
+    [(1, [cLd_, cRu_])] # |01, 10>
 ]
 
 # Calculate Hamiltonian matrix
