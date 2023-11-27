@@ -93,12 +93,3 @@ plt.title(r'Floquet quasienergies RED')
 
 plt.show()
 
-
-# Dynamics
-
-# Periodic potential (to be multiplied by cos(wt))
-""" HAC = VAC * (cLu_ * cLu + cLd_ * cLd - cRu_ * cRu - cRd_ * cRd) / 2
-
-args = {'w': w}
-H = [H_0, [HAC, 'cos(w * t)']]
- """
