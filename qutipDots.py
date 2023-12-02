@@ -54,7 +54,7 @@ def get_Liouville(Gamma: ArrayLike, H: ArrayLike) -> ArrayLike:
     
 def red_H_idx(H, allowed_idx):
     N = len(allowed_idx)
-    H_red = np.zeros((N, N))
+    H_red = np.zeros((N, N), dtype=np.complex128)
     for i in range(N):
         for j in range(N):
             H_red[i, j] = H[allowed_idx[i], allowed_idx[j]] 
@@ -63,8 +63,8 @@ def red_H_idx(H, allowed_idx):
 
 def red_H(H, states):
     N = len(states)
-    H_red = np.zeros((N, N))
+    H_red = np.zeros((N, N), dtype=np.complex128)
     for i in range(N):
         for j in range(N):
-            H_red[i, j] = (states[i].dag() * H * states[j]).full()[0][0]
+            H_red[i, j] = (states[i].dag() * H * states[j]).full(squeeze=True)
     return H_red

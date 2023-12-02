@@ -88,7 +88,7 @@ plt.legend()
 
 
 
-
+""" 
 # Now without reducing the Hamiltonian
 # Hamiltonian non AC
 H_0 = eLu * cLu_ * cLu + eLd * cLd_ * cLd + eRu * cRu_ * cRu + eRd * cRd_ * cRd \
@@ -133,4 +133,4 @@ plt.title('Full Hamiltonian')
 for i, idx in enumerate(allowed_idx):
     plt.plot(ts, p_ex[idx, :], label=f'|{i}>')
 plt.legend()
-plt.show()
+plt.show() """
