@@ -90,13 +90,12 @@ g1 = tau_0 / 10
 g2 = tau_0 / 10
 g3 = tau_0 / 10
 
-Id = qeye([2, 2])
-c1u_ = tensor(tensor(fcreate(2, 0), Id), Id)
-c1d_ = tensor(tensor(fcreate(2, 1), Id), Id)
-c2u_ = tensor(tensor(Id, fcreate(2, 0)), Id)
-c2d_ = tensor(tensor(Id, fcreate(2, 1)), Id)
-c3u_ = tensor(tensor(Id, Id), fcreate(2, 0))
-c3d_ = tensor(tensor(Id, Id), fcreate(2, 1))
+c1u_ = fcreate(6, 0)
+c1d_ = fcreate(6, 1)
+c2u_ = fcreate(6, 2)
+c2d_ = fcreate(6, 3)
+c3u_ = fcreate(6, 4)
+c3d_ = fcreate(6, 5)
 
 c1u = c1u_.dag()
 c1d = c1d_.dag()
@@ -112,21 +111,9 @@ n2d = c2d_ * c2d
 n3u = c3u_ * c3u
 n3d = c3d_ * c3d
 
-
-c1u_ = c1u.dag()
-c1d_ = c1d.dag()
-c2u_ = c2u.dag()
-c2d_ = c2d.dag()
-c3u_ = c3u.dag()
-c3d_ = c3d.dag() 
-
-n1u = c1u_ * c1u
-n1d = c1d_ * c1d
-n2u = c2u_ * c2u
-n2d = c2d_ * c2d
-n3u = c3u_ * c3u
-n3d = c3d_ * c3d
 I = g2 * (n2u + n2d) + g3 * (n3u + n3d)
+
+
 H = (
     # energies
     e1 * c1u_ * c1u + e1 * c1d_ * c1d + e2 * c2u_ * c2u + e2 * c2d_ * c2d + e3 * c3u_ * c3u + e3 * c3d_ * c3d 
