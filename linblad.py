@@ -3,6 +3,7 @@ import qutip as qt
 from numpy import exp
 import matplotlib.pyplot as plt
 import scienceplots
+from qutip import fcreate, fdestroy, qeye, tensor
 plt.style.use('science')
 # tqd with no spin
 e1 = 0
@@ -89,21 +90,28 @@ g1 = tau_0 / 10
 g2 = tau_0 / 10
 g3 = tau_0 / 10
 
-# Basis
-s10_00_00 = eqdot_state([1, 0, 0, 0, 0, 0]) # |10, 00, 00>
-s01_00_00 = eqdot_state([0, 1, 0, 0, 0, 0]) # |01, 00, 00>
-s00_10_00 = eqdot_state([0, 0, 1, 0, 0, 0]) # |00, 10, 00>
-s00_01_00 = eqdot_state([0, 0, 0, 1, 0, 0]) # |00, 01, 00>
-s00_00_10 = eqdot_state([0, 0, 0, 0, 1, 0]) # |00, 00, 10>
-s00_00_01 = eqdot_state([0, 0, 0, 0, 0, 1]) # |00, 00, 01>
+Id = qeye([2, 2])
+c1u_ = tensor(tensor(fcreate(2, 0), Id), Id)
+c1d_ = tensor(tensor(fcreate(2, 1), Id), Id)
+c2u_ = tensor(tensor(Id, fcreate(2, 0)), Id)
+c2d_ = tensor(tensor(Id, fcreate(2, 1)), Id)
+c3u_ = tensor(tensor(Id, Id), fcreate(2, 0))
+c3d_ = tensor(tensor(Id, Id), fcreate(2, 1))
 
-# Relevant operators
-c1u = f_destroy(6, 0)
-c1d = f_destroy(6, 1)
-c2u = f_destroy(6, 2)
-c2d = f_destroy(6, 3)
-c3u = f_destroy(6, 4)
-c3d = f_destroy(6, 5)
+c1u = c1u_.dag()
+c1d = c1d_.dag()
+c2u = c2u_.dag()
+c2d = c2d_.dag()
+c3u = c3u_.dag()
+c3d = c3d_.dag()
+
+n1u = c1u_ * c1u
+n1d = c1d_ * c1d
+n2u = c2u_ * c2u
+n2d = c2d_ * c2d
+n3u = c3u_ * c3u
+n3d = c3d_ * c3d
+
 
 c1u_ = c1u.dag()
 c1d_ = c1d.dag()
@@ -138,7 +146,8 @@ out3 = np.sqrt(g3) * c3u + np.sqrt(g3) * c3d
 
 # solve dynamics
 tlist = np.linspace(0, 4*T0, 1000)
-rho0 = s10_00_00 * s10_00_00.dag()
+phi0 = basis([2,2,2,2,2,2], [1,0,0,0,0,0])
+rho0 = phi0 * phi0.dag()
 # transform all elemnts to Qobj
 H = qt.Qobj(H)
 into1 = qt.Qobj(into1)
@@ -175,8 +184,8 @@ with plt.style.context(['science']):
     axs[1].spines['right'].set_linewidth(1.5)
     axs[0].set_ylim(0, 1)
     axs[1].set_ylim(0, 1)
-    axs[0].set_xlim(0, 4)
-    axs[1].set_xlim(0, 4)
+    axs[0].set_xlim(0, 2)
+    axs[1].set_xlim(0, 2)
     
 # now plot current
 
@@ -192,7 +201,7 @@ with plt.style.context(['science']):
     axs.spines['left'].set_linewidth(1.5)
     axs.spines['top'].set_linewidth(1.5)
     axs.spines['right'].set_linewidth(1.5)
-    axs.set_xlim(0, 4)
+    axs.set_xlim(0, 2)
 
 
 
