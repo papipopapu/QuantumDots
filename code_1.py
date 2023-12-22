@@ -63,10 +63,12 @@ H = [
     (-tau_sf*exp(I*alpha_23), [c3d_, c2u]),
     (tau_sf*exp(I*alpha_23), [c2d_, c3u]),
     (tau_sf*exp(-I*alpha_23), [c3u_, c2d]),
-    (-tau_sf*exp(-I*alpha_31), [c1u_, c3d]),
-    (-tau_sf*exp(I*alpha_31), [c3d_, c1u]),
-    (tau_sf*exp(I*alpha_31), [c1d_, c3u]),
-    (tau_sf*exp(-I*alpha_31), [c3u_, c1d])
+    
+    (tau_sf*exp(-I*alpha_31), [c1u_, c3d]),
+    (tau_sf*exp(I*alpha_31), [c3d_, c1u]),
+    
+    (-tau_sf*exp(I*alpha_31), [c1d_, c3u]),
+    (-tau_sf*exp(-I*alpha_31), [c3u_, c1d])
 ]
 # only allow 1 electron for now
 basis = [ 

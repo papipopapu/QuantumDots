@@ -77,4 +77,15 @@ plt.legend()
 
 plt.xlabel('Time')
 plt.ylabel('Population')
+
+
+
+
+
+
+
+
+
+
+
 plt.show()

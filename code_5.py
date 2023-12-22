@@ -40,13 +40,13 @@ e2d = 1.0
 e3u = 1.0
 e3d = 1.0
 tau_0 = 1.0
-tau_sf = 0
+tau_sf = 1.0
 alphas = np.linspace(0, 2*np.pi, 10)
 
 d1 = 0
 d2 = 0
 
-a_12 = 1.7 * np.pi
+a_12 = np.e * np.pi
 a_23 = a_12 + d1
 a_31 = a_23 + d2
 
@@ -79,10 +79,11 @@ Hu = U.T @ H_red @ U
 print(Hu-np.conj(H))
 """
 
-phi_0 = s10_00_00
+phi_0 = (s10_00_00 + s00_01_00 + s00_00_10).unit()
 rho_0 = phi_0 * phi_0.dag()
 
-expect_ops = [c1u_ * c1u + c1d_ * c1d, c2u_ * c2u + c2d_ * c2d, c3u_ * c3u + c3d_ * c3d]
+# off diagonal elements of rho_0 (the 15 elments above the diagonal)
+expect_ops = [c1u_ * c1d, c1u_ * c2u, c1u_ * c2d, c1u_ * c3u, c1u_ * c3d, c1d_ * c2u, c1d_ * c2d, c1d_ * c3u, c1d_ * c3d, c2u_ * c2d, c2u_ * c3u, c2u_ * c3d, c2d_ * c3u, c2d_ * c3d, c3u_ * c3d]
 tlist = np.linspace(0, 20, 1000)
 result = qt.mesolve(H, rho_0, tlist, [], expect_ops)
 T_0 = 2.094 # period of oscillation of rho_11 for tau_sf = 0, T_0 = 2*pi/W_0, W_0 = 3*tau_0
@@ -115,32 +116,13 @@ with plt.style.context(['science']):
         plt.savefig('figures/sf_a12=1,23pi+4,2pi,a23=13=4,2pi.png', dpi=300, bbox_inches='tight')
         plt.show() """
         # now subplot, 1x2, one for spin up, one for spin down
-        fig, ax = plt.subplots(1, figsize=(8, 6))
-        # Plot
-        ax.plot(tlist, result.expect[0], label= r'$\rho_{11}$', c='c', linestyle='solid', linewidth=1.5)
-        ax.plot(tlist, result.expect[1], label= r'$\rho_{22}$', color='orange', linestyle='dashed', linewidth=1.5)
-        ax.plot(tlist, result.expect[2], label= r'$\rho_{33}$', color='black', linestyle='dotted', linewidth=1.5)
-        # latex axis labels
-        ax.set_ylabel(r'$\rho(t)$', fontsize=25)
-        ax.set_xlabel(r'$t[\Omega_0/2\pi]$', fontsize=25)
-
-        # only one legend for both subplots, located on top of both
-        ax.legend(fontsize=25, loc='upper center', bbox_to_anchor=(0.5, 1.15), ncol=3)
-        
-        # change tick size
-        ax.tick_params(axis='both', which='major', labelsize=25, length=8, width=1.5)
-        
-        # make lines thicker
-        ax.spines['bottom'].set_linewidth(1.5)
-        ax.spines['left'].set_linewidth(1.5)
-        ax.spines['top'].set_linewidth(1.5)
-        ax.spines['right'].set_linewidth(1.5)
-    
-        
-        ax.set_xlim(0, 6)
-
-        # save figure
-        plt.savefig('figures/psf_0', dpi=300, bbox_inches='tight')
-
+        for i in range(15):
+                fig, ax = plt.subplots(figsize=(8, 6))
+                ax.plot(tlist, np.real(result.expect[i]), label='real')
+                ax.plot(tlist, np.imag(result.expect[i]), label='imag')
+                # legend
+                ax.legend(fontsize=18)
+                # save figure
+                plt.savefig('wtf/{}.png'.format(i), dpi=300, bbox_inches='tight')
         plt.show()
 

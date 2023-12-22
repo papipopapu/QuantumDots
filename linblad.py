@@ -54,6 +54,7 @@ rho0 = qt.Qobj(rho0)
 n1 = qt.Qobj(n1)
 n2 = qt.Qobj(n2)
 n3 = qt.Qobj(n3)
+print(n3)
 # solve
 rhos = qt.mesolve(H0, rho0, tlist, [into, out], [n1, n2, n3])
 
@@ -74,17 +75,18 @@ with plt.style.context(['science']):
     axs.set_xlim(0, 4)
     axs.set_ylim(0, 1)
     
-    
+    # save
+    plt.savefig('figs/worky.png', dpi=300, bbox_inches='tight')
 
 
 # now with spin and spin flip and no limit to number of electrons
 # two drains (2, 3) and one source (1)
 
-tau_0 = 1.0
-tau_sf = 1.0
-a_12 = 0
-a_23 = 0
-a_31 = 0
+tau_0 = 0.1
+tau_sf = 0.1
+a_12 = 0.000000 *  2 * np.pi
+a_23 = 0.000000 *  2 * np.pi
+a_31 = 0.000000 *  2 * np.pi
 
 g1 = tau_0 / 10
 g2 = tau_0 / 10
@@ -111,7 +113,7 @@ n2d = c2d_ * c2d
 n3u = c3u_ * c3u
 n3d = c3d_ * c3d
 
-I = g2 * (n2u + n2d) + g3 * (n3u + n3d)
+I = (n2u + n2d) + (n3u + n3d) # I/Gamma
 
 
 H = (
@@ -132,7 +134,8 @@ out2 = np.sqrt(g2) * c2u + np.sqrt(g2) * c2d
 out3 = np.sqrt(g3) * c3u + np.sqrt(g3) * c3d
 
 # solve dynamics
-tlist = np.linspace(0, 4*T0, 1000)
+tf = 10
+tlist = np.linspace(0, tf*T0, 1000)
 phi0 = basis([2,2,2,2,2,2], [1,0,0,0,0,0])
 rho0 = phi0 * phi0.dag()
 # transform all elemnts to Qobj
@@ -142,7 +145,7 @@ out2 = qt.Qobj(out2)
 out3 = qt.Qobj(out3)
 rho0 = qt.Qobj(rho0)
 # solve
-rhos = qt.mesolve(H, rho0, tlist, [into1, out2, out3], [n1u, n1d, n2u, n2d, n3u, n3d, I])
+rhos = qt.mesolve(H, rho0, tlist, [np.sqrt(g1) * c1u_ , np.sqrt(g1) * c1d_, np.sqrt(g2) * c2u , np.sqrt(g2) * c2d, np.sqrt(g3) * c3u , np.sqrt(g3) * c3d], [n1u, n1d, n2u, n2d, n3u, n3d, I])
 
 with plt.style.context(['science']):
     fig, axs = plt.subplots(2, 1, figsize=(12, 8), sharex=True)
@@ -171,25 +174,28 @@ with plt.style.context(['science']):
     axs[1].spines['right'].set_linewidth(1.5)
     axs[0].set_ylim(0, 1)
     axs[1].set_ylim(0, 1)
-    axs[0].set_xlim(0, 2)
-    axs[1].set_xlim(0, 2)
+    axs[0].set_xlim(0, tf)
+    axs[1].set_xlim(0, tf)
+    
+    # save
+    plt.savefig('figs/exps(t).png', dpi=300, bbox_inches='tight')
     
 # now plot current
 
 with plt.style.context(['science']):
     
     fig, axs = plt.subplots(1, 1, figsize=(12, 8), sharex=True)
-    axs.plot(tlist/T0, rhos.expect[6], label= r'$I(t)$', c='c', linestyle='solid', linewidth=1.5)
-    axs.set_ylabel(r'$I(t)$', fontsize=30, labelpad=25)
+    axs.plot(tlist/T0, rhos.expect[6], linestyle='solid', linewidth=1.5)
+    axs.set_ylabel(r'$I(t)/\Gamma$', fontsize=30, labelpad=25)
     axs.set_xlabel(r'$t[\Omega_0/2\pi]$', fontsize=30)
-    axs.legend(fontsize=30, loc='upper center', bbox_to_anchor=(0.5, 1.31), ncol=3)
     axs.tick_params(axis='both', which='major', labelsize=30, length=8, width=1.5)
     axs.spines['bottom'].set_linewidth(1.5)
     axs.spines['left'].set_linewidth(1.5)
     axs.spines['top'].set_linewidth(1.5)
     axs.spines['right'].set_linewidth(1.5)
-    axs.set_xlim(0, 2)
-
+    axs.set_xlim(0, tf)
+    # save
+    plt.savefig('figs/I(t).png', dpi=300, bbox_inches='tight')
 
 
 plt.show()

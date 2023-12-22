@@ -1,5 +1,6 @@
 import numpy as np
-from qutip import tensor, basis, sigmaz, destroy, identity
+from qutip import tensor, basis, sigmaz, destroy, identity, create, jmat
+
 from typing import List
 from numpy.typing import ArrayLike
 
@@ -66,5 +67,9 @@ def red_H(H, states):
     H_red = np.zeros((N, N), dtype=np.complex128)
     for i in range(N):
         for j in range(N):
-            H_red[i, j] = (states[i].dag() * H * states[j]).full(squeeze=True)
+            H_red[i, j] = (states[i].dag() * H * states[j])
     return H_red
+
+
+
+
