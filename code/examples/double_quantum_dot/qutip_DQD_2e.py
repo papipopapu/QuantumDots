@@ -1,7 +1,25 @@
+"""
+QuTiP-based Double Quantum Dot (DQD) simulation with 2 electrons.
+
+This example uses QuTiP to numerically construct the Hamiltonian for a 
+two-electron DQD system using Jordan-Wigner fermionic operators. The 
+Hamiltonian is reduced to the 6-dimensional two-electron subspace.
+
+Physical setup:
+- 4 fermionic modes: Left (up, down), Right (up, down)
+- 6 two-electron basis states
+- Includes tunneling and Coulomb interactions
+
+This demonstrates the numerical approach complementing the symbolic
+calculations in DQD_2e.py
+
+Author: Joel Martínez, 2023
+Collaboration: Instituto de Ciencia de Materiales de Madrid (ICMM-CSIC)
+"""
 
 from qutipDots import *
-    
-# Basis
+
+# Define basis states for 2-electron subspace
 
 s11_00 = eqdot_state([1, 1, 0, 0]) # |11, 00>
 s00_11 = eqdot_state([0, 0, 1, 1]) # |00, 11>

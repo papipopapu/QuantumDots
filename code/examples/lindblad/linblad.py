@@ -1,3 +1,25 @@
+"""
+Lindblad dynamics for TQD with spin and spin-orbit coupling.
+
+This comprehensive example simulates a triangular TQD with full spin 
+degrees of freedom, including spin-flip tunneling processes induced 
+by spin-orbit coupling.
+
+Physical setup:
+- 6 fermionic modes: (1↑, 1↓, 2↑, 2↓, 3↑, 3↓)
+- Normal and spin-flip tunneling
+- Phase factors α_12, α_23, α_31 for spin-orbit coupling
+- Coupling to reservoirs: injection at dot 1, extraction at dots 2 and 3
+
+The simulation shows:
+1. Time evolution of spin-resolved populations
+2. Current through the device
+3. Effect of spin-orbit phases on transport
+
+Author: Joel Martínez, 2023
+Collaboration: Instituto de Ciencia de Materiales de Madrid (ICMM-CSIC)
+"""
+
 from qutipDots import *
 import qutip as qt
 from numpy import exp
@@ -5,7 +27,8 @@ import matplotlib.pyplot as plt
 import scienceplots
 from qutip import fcreate, fdestroy, qeye, tensor
 plt.style.use('science')
-# tqd with no spin
+
+# System parameters for spinless TQD
 e1 = 0
 e2 = 0
 e3 = 0

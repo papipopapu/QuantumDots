@@ -1,8 +1,30 @@
+"""
+QuTiP-based Triple Quantum Dot (TQD) simulation with Lindblad dynamics.
+
+This example demonstrates numerical simulation of a TQD coupled to 
+electron reservoirs using the Liouvillian formalism. The system evolves 
+according to the Lindblad master equation towards a steady state.
+
+Physical setup:
+- 3-site spinless TQD (0-1 electron per site)
+- Linear chain: electron injection at dot 1, extraction at dot 3
+- Coupling rates Γ_L, Γ_R ~ τ/10
+
+The simulation shows:
+1. Time evolution of populations ρ_11, ρ_22, ρ_33
+2. Convergence to steady state
+3. Comparison with analytically found steady state (null space of L)
+
+Author: Joel Martínez, 2023
+Collaboration: Instituto de Ciencia de Materiales de Madrid (ICMM-CSIC)
+"""
+
 from qutipDots import *
 from qutip import *
 import matplotlib.pyplot as plt
 from scipy.linalg import expm, null_space
-# Basis
+
+# Define basis states (empty + single occupation)
 s0_0_0 = eqdot_state([0, 0, 0]) # |0, 0, 0>
 s1_0_0 = eqdot_state([1, 0, 0]) # |1, 0, 0>
 s0_1_0 = eqdot_state([0, 1, 0]) # |0, 1, 0>

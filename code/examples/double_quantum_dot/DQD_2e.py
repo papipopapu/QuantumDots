@@ -1,3 +1,23 @@
+"""
+Double Quantum Dot (DQD) with 2 electrons - Hamiltonian construction.
+
+This example demonstrates how to construct the Hamiltonian for a double 
+quantum dot system with two electrons using second quantization. The system 
+includes spin degrees of freedom, tunneling, and Coulomb interactions.
+
+Physical parameters:
+- On-site energies: ε_Lσ, ε_Rσ (spin-dependent)
+- Tunneling amplitude: τ
+- Intradot Coulomb interaction: U_L, U_R
+- Interdot Coulomb interaction: V
+
+The basis consists of 6 two-electron states:
+|11, 00⟩, |00, 11⟩, |10, 10⟩, |01, 01⟩, |10, 01⟩, |01, 10⟩
+
+Author: Joel Martínez, 2023
+Collaboration: Instituto de Ciencia de Materiales de Madrid (ICMM-CSIC)
+"""
+
 from hamiltonian import *
 from sympy import Symbol, init_printing, latex, Matrix
 
