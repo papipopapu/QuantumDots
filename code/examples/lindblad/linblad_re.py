@@ -1,3 +1,22 @@
+"""
+Lindblad dynamics for a TQD using QuTiP's built-in fermionic operators.
+
+This example demonstrates an alternative approach to simulating open 
+quantum dot systems using QuTiP's fcreate/fdestroy operators instead 
+of the Jordan-Wigner construction.
+
+Physical setup:
+- Linear 3-site spinless TQD
+- Lindblad collapse operators for electron injection/extraction
+- Time evolution using QuTiP's mesolve
+
+This provides a comparison with the custom Jordan-Wigner implementation
+in qutipDots.py, showing that both approaches yield consistent results.
+
+Author: Joel Martínez, 2023
+Collaboration: Instituto de Ciencia de Materiales de Madrid (ICMM-CSIC)
+"""
+
 from qutipDots import *
 import qutip as qt
 from numpy import exp
@@ -5,7 +24,8 @@ import matplotlib.pyplot as plt
 import scienceplots
 from qutip import fcreate, fdestroy, qeye, tensor
 plt.style.use('science')
-# tqd with no spin
+
+# System parameters
 e1 = 0
 e2 = 0
 e3 = 0

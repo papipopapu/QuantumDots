@@ -1,8 +1,30 @@
+"""
+Floquet dynamics for periodically driven DQD.
+
+This example demonstrates the Floquet formalism for a double quantum dot
+subject to a periodic AC voltage. The system is driven by a cosine 
+potential V_AC * cos(ωt) applied between the dots.
+
+Floquet theory key concepts:
+- The time-dependent Hamiltonian H(t) = H_0 + H_AC * cos(ωt)
+- Floquet modes |u_i(t)⟩ with quasienergies ε_i
+- State evolution: |ψ(t)⟩ = Σ_i c_i * e^(-iε_i*t) * |u_i(t)⟩
+
+Physical setup:
+- DQD with 2 electrons (6-dimensional subspace)
+- AC driving with amplitude V_AC and frequency ω
+- Demonstrates Floquet mode decomposition and dynamics
+
+Author: Joel Martínez, 2023
+Collaboration: Instituto de Ciencia de Materiales de Madrid (ICMM-CSIC)
+"""
+
 from qutipDots import *
 import matplotlib.pyplot as plt
 from scipy.linalg import expm
 from qutip import Qobj, floquet_modes, floquet_modes_table, floquet_modes_t_lookup, floquet_state_decomposition
-# Basis
+
+# Define basis states for 2-electron DQD
 
 s11_00 = eqdot_state([1, 1, 0, 0]) # |11, 00>
 s00_11 = eqdot_state([0, 0, 1, 1]) # |00, 11>

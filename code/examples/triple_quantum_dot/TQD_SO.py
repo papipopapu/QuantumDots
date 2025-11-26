@@ -1,3 +1,25 @@
+"""
+Triple Quantum Dot (TQD) with Spin-Orbit Coupling.
+
+This example constructs the Hamiltonian for a linear TQD system with 
+spin-orbit coupling. The spin-flip tunneling enables spin manipulation
+without magnetic fields, which is important for spintronic applications.
+
+Physical setup:
+- 3 quantum dots with spin: (1↑, 1↓, 2↑, 2↓, 3↑, 3↓)
+- Normal tunneling: τ_0 (spin-preserving)
+- Spin-flip tunneling: τ_sf (spin-orbit induced)
+- Coulomb interactions: U (intradot), V (interdot)
+- Zeeman splitting: E_z
+
+Two cases are studied:
+1. Single electron (6 basis states)
+2. Two electrons (15 basis states)
+
+Author: Joel Martínez, 2023
+Collaboration: Instituto de Ciencia de Materiales de Madrid (ICMM-CSIC)
+"""
+
 from hamiltonian import *
 from sympy import Symbol, init_printing, latex, Matrix, simplify
 import numpy as np

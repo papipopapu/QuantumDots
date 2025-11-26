@@ -1,10 +1,33 @@
+"""
+Triple Quantum Dot (TQD) with 1 electron maximum (spinless).
+
+This example demonstrates the symbolic construction of a Lindblad master 
+equation for a linear TQD coupled to electron reservoirs. The system 
+allows at most one electron and has no spin degrees of freedom.
+
+Physical setup:
+- 3 quantum dots in a linear chain (1-2-3)
+- On-site energies: ε_1, ε_2, ε_3
+- Tunneling: τ (between adjacent dots only)
+- Coupled to leads: Γ_L (inject at dot 1), Γ_R (extract at dot 3)
+
+The example shows how to:
+1. Construct the Hamiltonian matrix
+2. Set up the transition rate matrix (Γ)
+3. Derive the Lindblad master equation symbolically
+4. Obtain both matrix and vectorized (Liouvillian) forms
+
+Author: Joel Martínez, 2023
+Collaboration: Instituto de Ciencia de Materiales de Madrid (ICMM-CSIC)
+"""
+
 from hamiltonian import *
 from density import *
 
 from sympy import Symbol, init_printing, latex, Matrix, zeros, simplify
 
 
-# enable printing of latex
+# Enable LaTeX printing
 init_printing()
 
 # Define spaces

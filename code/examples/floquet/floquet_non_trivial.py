@@ -1,8 +1,30 @@
+"""
+Floquet analysis - Non-trivial case with AC driving.
+
+This example explores the Floquet quasienergy spectrum as a function of
+the AC driving amplitude V_AC. The periodic potential creates level
+crossings that become avoided crossings due to the AC coupling.
+
+Physical phenomena demonstrated:
+- Quasienergy band structure as a function of V_AC/ω
+- Comparison between full 16-dimensional and reduced 6-dimensional calculations
+- The reduced Hamiltonian captures the essential physics
+
+Key insight: 
+The AC potential creates a phase difference between left and right dots,
+leading to photon-assisted tunneling and coherent destruction of tunneling
+at specific driving amplitudes.
+
+Author: Joel Martínez, 2023
+Collaboration: Instituto de Ciencia de Materiales de Madrid (ICMM-CSIC)
+"""
+
 from qutipDots import *
 import matplotlib.pyplot as plt
 from scipy.linalg import expm
 from qutip import Qobj, floquet_modes
-# Basis
+
+# Define basis states for 2-electron DQD
 
 s11_00 = eqdot_state([1, 1, 0, 0]) # |11, 00>
 s00_11 = eqdot_state([0, 0, 1, 1]) # |00, 11>

@@ -1,7 +1,28 @@
+"""
+Floquet analysis - Trivial case (V_AC = 0).
+
+This example demonstrates that when the AC driving amplitude is zero,
+the Floquet modes reduce to the ordinary energy eigenstates, and the
+dynamics are simply determined by the static Hamiltonian.
+
+Physical insight:
+When V_AC = 0, the "periodic" Hamiltonian is actually static, so:
+- Floquet modes = Energy eigenstates
+- Quasienergies = Energy eigenvalues
+- No parametric effects or avoided crossings
+
+This serves as a baseline for comparing with non-trivial AC driving
+in floquet_non_trivial.py.
+
+Author: Joel Martínez, 2023
+Collaboration: Instituto de Ciencia de Materiales de Madrid (ICMM-CSIC)
+"""
+
 from qutipDots import *
 import matplotlib.pyplot as plt
 from scipy.linalg import expm
-# Basis
+
+# Define basis states for 2-electron DQD
 
 s11_00 = eqdot_state([1, 1, 0, 0]) # |11, 00>
 s00_11 = eqdot_state([0, 0, 1, 1]) # |00, 11>

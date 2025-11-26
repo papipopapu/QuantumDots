@@ -2,6 +2,8 @@
 
 A Python library for simulating quantum dot systems, including double quantum dots (DQD) and triple quantum dots (TQD) with various physical effects like spin-orbit coupling, Coulomb interactions, and Floquet dynamics.
 
+This project was developed as part of a research collaboration with the **Instituto de Ciencia de Materiales de Madrid (ICMM-CSIC)**, focusing on the study of quantum dots and their applications in quantum information.
+
 ## Overview
 
 Quantum dots are nanoscale semiconductor structures that confine electrons in all three spatial dimensions, creating discrete energy levels similar to atoms ("artificial atoms"). This project provides tools for:
@@ -63,18 +65,19 @@ pip install scienceplots
 ## Project Structure
 
 ```
-QuantumDots/
+ICMM-Quantum-Dots/
 ├── code/
 │   ├── lib/                    # Core library modules
 │   │   ├── __init__.py
 │   │   ├── hamiltonian.py      # Second quantization framework
 │   │   ├── density.py          # Lindblad master equation tools
 │   │   └── qutipDots.py        # QuTiP-based numerical tools
-│   └── examples/               # Example simulations
-│       ├── double_quantum_dot/ # DQD examples
-│       ├── triple_quantum_dot/ # TQD examples
-│       ├── floquet/            # Floquet dynamics examples
-│       └── lindblad/           # Open system dynamics examples
+│   ├── examples/               # Example simulations
+│   │   ├── double_quantum_dot/ # DQD examples
+│   │   ├── triple_quantum_dot/ # TQD examples
+│   │   ├── floquet/            # Floquet dynamics examples
+│   │   └── lindblad/           # Open system dynamics examples
+│   └── README.md               # Module documentation
 ├── README.md
 └── LICENSE
 ```
@@ -210,6 +213,10 @@ Key physics concepts implemented in this code:
 2. Jordan-Wigner transformation for fermionic operators
 3. Lindblad master equation for open quantum systems
 4. Floquet theory for periodically driven systems
+
+## Acknowledgements
+
+This research was conducted in collaboration with the **Instituto de Ciencia de Materiales de Madrid (ICMM)**, part of the Spanish National Research Council (CSIC). The work focuses on theoretical modeling of quantum dot systems for applications in quantum computing and spintronics.
 
 ## License
 

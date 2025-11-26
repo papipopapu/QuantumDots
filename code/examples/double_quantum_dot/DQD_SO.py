@@ -1,3 +1,25 @@
+"""
+Double Quantum Dot (DQD) with Spin-Orbit Coupling.
+
+This example extends the DQD model to include spin-orbit coupling, which 
+enables spin-flip tunneling processes. The system is studied with both 
+1 and 2 electrons, and includes the Zeeman effect for magnetic field effects.
+
+Physical parameters:
+- On-site energies: ε_L, ε_R
+- Normal tunneling: τ_0 (spin-preserving)
+- Spin-flip tunneling: τ_sf (spin-orbit induced)
+- Coulomb interactions: U (intradot), V (interdot)
+- Zeeman splitting: E_z
+
+The example demonstrates basis transformation to the molecular basis:
+- Singlet states: S_11, S_02, S_20
+- Triplet states: T_0, T_+, T_-
+
+Author: Joel Martínez, 2023
+Collaboration: Instituto de Ciencia de Materiales de Madrid (ICMM-CSIC)
+"""
+
 from hamiltonian import *
 from sympy import Symbol, init_printing, latex, Matrix, simplify
 import numpy as np
