@@ -8,7 +8,7 @@ This project was developed as part of a research collaboration with the **Instit
 
 Quantum dots are nanoscale semiconductor structures that confine electrons in all three spatial dimensions, creating discrete energy levels similar to atoms ("artificial atoms"). This project provides tools for:
 
-- **Hamiltonian construction** using second quantization formalism
+- **Symbolic Hamiltonian construction** using second quantization formalism
 - **Open system dynamics** via Lindblad master equations
 - **Floquet theory** for periodically driven systems
 - **Numerical simulations** using QuTiP
