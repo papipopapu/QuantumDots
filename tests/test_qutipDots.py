@@ -172,16 +172,16 @@ class TestReducedHamiltonian:
         
     def test_red_H_with_states(self):
         """Test reducing Hamiltonian using state vectors."""
-        # Note: This test uses red_H which expects matrix indexing with
-        # allowed indices rather than state vectors. The actual usage in
-        # examples uses this approach. See qutip_TQD_1emax.py for usage.
+        # Note: This test uses red_H_idx which uses matrix indexing with
+        # allowed indices, as this is the pattern used in example files
+        # like those in examples/double_quantum_dot/.
         # Create a simple number operator Hamiltonian
         c1 = f_destroy(3, 0)
         c1_dag = f_create(3, 0)
 
         H = c1_dag * c1  # Number operator for site 1
 
-        # Use the allowed_idx approach instead (as done in examples)
+        # Use the allowed_idx approach (as done in examples)
         states = [eqdot_state([0, 0, 0]), eqdot_state([1, 0, 0])]
         allowed_idx = [s.data.nonzero()[0][0] for s in states]
         
@@ -237,6 +237,7 @@ class TestPhysicalConsistency:
         assert rho_ss.shape[1] == 1
         
         # Steady state should have positive trace
-        rho_ss_matrix = rho_ss.reshape((4, 4))
+        # Extract the column vector and reshape to density matrix
+        rho_ss_matrix = rho_ss[:, 0].reshape((4, 4))
         trace = np.trace(rho_ss_matrix)
         assert np.abs(trace) > 1e-10
