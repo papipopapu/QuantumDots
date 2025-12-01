@@ -65,6 +65,7 @@ H = eLu * cLu_ * cLu + eLd * cLd_ * cLd + eRu * cRu_ * cRu + eRd * cRd_ * cRd \
         
 # Periodic potential (to be multiplied by cos(wt))
 HAC_0 = VAC * (cLu_ * cLu + cLd_ * cLd + cRu_ * cRu + cRd_ * cRd) / 2
+HAC_0 = np.array(HAC_0.full())  # Convert to numpy array for scipy.linalg.expm
         
 H_red = np.zeros((6, 6))
 for i in range(6):
