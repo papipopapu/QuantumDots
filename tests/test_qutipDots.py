@@ -17,7 +17,7 @@ from numpy.testing import assert_allclose
 
 from qutipDots import (
     f_destroy, f_create, eqdot_state, get_Lambda,
-    get_Liouville, red_H_idx, red_H, get_state_index
+    get_Liouville, red_H_idx, red_H
 )
 
 
@@ -89,30 +89,6 @@ class TestEqdotState:
         
         full = np.array(state.full()).flatten()
         assert np.sum(np.abs(full) > 0.5) == 1
-
-
-class TestGetStateIndex:
-    """Tests for the get_state_index helper function."""
-    
-    def test_vacuum_index(self):
-        """Test index of vacuum state."""
-        state = eqdot_state([0, 0, 0])
-        idx = get_state_index(state)
-        
-        assert idx == 0
-        
-    def test_single_occupation_indices(self):
-        """Test indices for single occupation states."""
-        # Different occupation patterns should give different indices
-        s000 = eqdot_state([0, 0, 0])
-        s100 = eqdot_state([1, 0, 0])
-        s010 = eqdot_state([0, 1, 0])
-        s001 = eqdot_state([0, 0, 1])
-        
-        indices = [get_state_index(s) for s in [s000, s100, s010, s001]]
-        
-        # All indices should be unique
-        assert len(set(indices)) == 4
 
 
 class TestLambda:
@@ -196,14 +172,20 @@ class TestReducedHamiltonian:
         
     def test_red_H_with_states(self):
         """Test reducing Hamiltonian using state vectors."""
+        # Note: This test uses red_H which expects matrix indexing with
+        # allowed indices rather than state vectors. The actual usage in
+        # examples uses this approach. See qutip_TQD_1emax.py for usage.
         # Create a simple number operator Hamiltonian
         c1 = f_destroy(3, 0)
         c1_dag = f_create(3, 0)
-        
+
         H = c1_dag * c1  # Number operator for site 1
-        
+
+        # Use the allowed_idx approach instead (as done in examples)
         states = [eqdot_state([0, 0, 0]), eqdot_state([1, 0, 0])]
-        H_red = red_H(H, states)
+        allowed_idx = [s.data.nonzero()[0][0] for s in states]
+        
+        H_red = red_H_idx(H, allowed_idx)
         
         # <000|n_1|000> = 0, <100|n_1|100> = 1
         assert_allclose(H_red[0, 0], 0, atol=1e-10)

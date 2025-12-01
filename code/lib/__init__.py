@@ -30,6 +30,5 @@ from .qutipDots import (
     get_Lambda,
     get_Liouville,
     red_H_idx,
-    red_H,
-    get_state_index
+    red_H
 )

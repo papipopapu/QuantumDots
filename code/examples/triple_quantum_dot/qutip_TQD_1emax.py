@@ -31,7 +31,7 @@ s0_1_0 = eqdot_state([0, 1, 0]) # |0, 1, 0>
 s0_0_1 = eqdot_state([0, 0, 1]) # |0, 0, 1>
 
 allowed_states = [s0_0_0, s1_0_0, s0_1_0, s0_0_1]
-allowed_idx = [get_state_index(s) for s in allowed_states]
+allowed_idx = [s.data.nonzero()[0][0] for s in allowed_states]
 
 c1 = f_destroy(3, 0)
 c2 = f_destroy(3, 1)
