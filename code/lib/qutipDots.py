@@ -199,3 +199,23 @@ def red_H(H, states):
         for j in range(N):
             H_red[i, j] = (states[i].dag() * H * states[j])
     return H_red
+
+
+def get_state_index(state):
+    """
+    Get the index of the nonzero element in a Fock state.
+    
+    For a pure Fock state (computational basis state), returns the
+    index of the single nonzero element in its vector representation.
+    This is useful for reducing Hamiltonians to specific subspaces.
+    
+    Compatible with both QuTiP 4 and QuTiP 5.
+    
+    Args:
+        state: A QuTiP Qobj ket representing a Fock state
+        
+    Returns:
+        int: The index of the nonzero element
+    """
+    full_arr = np.array(state.full()).flatten()
+    return np.nonzero(full_arr)[0][0]

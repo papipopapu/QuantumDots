@@ -30,7 +30,7 @@ s01_10 = eqdot_state([0, 1, 1, 0]) # |01, 10>
 
 
 allowed_states = [s11_00, s00_11, s10_10, s01_01, s10_01, s01_10]
-allowed_idx = [s.data.nonzero()[0][0] for s in allowed_states]
+allowed_idx = [get_state_index(s) for s in allowed_states]
 
 cLu = f_destroy(4, 0)
 cLd = f_destroy(4, 1)
